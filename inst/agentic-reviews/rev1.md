@@ -31,7 +31,7 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 ### Concerns
 
 - The package-level description is still fairly terse/technical and does not explain the scientific niche as well as the vignettes do (`man/mesa-package.Rd:7-10`).
-- The README should be updated to describe the current documentation set accurately; for example, the line saying “a full vignette is under construction” does not match the presence of several existing vignettes and makes the package look less mature than it is (`README.md:13`).
+- The README should be updated to describe the current documentation set accurately and avoid outdated statements about vignette maturity, so the package presentation matches the material already shipped in `vignettes/` (`README.md:13`, `vignettes/`).
 - There are noticeable wording and grammar issues in vignettes. Direct quotes include “designed to introduction” (`vignettes/introduction.Rmd:24`), “Once this step has performed” (`vignettes/introduction.Rmd:32`), and “this is only includes” (`vignettes/introduction.Rmd:43`), which Bioconductor reviewers often notice.
 
 ### Assessment
@@ -48,14 +48,14 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 
 ### Concerns
 
-- The test harness sets `options(skip_long_checks = TRUE)` by default (`tests/testthat.R:11`), and many important tests immediately call `skip_long_checks()` (`R/utils.R:238-262`; for example `tests/testthat/test-DMRs.R:3`, `tests/testthat/test-makeQset.R:4`, `tests/testthat/test-exampleQset.R:3`, `tests/testthat/test-pca.R:94`). So **effective routine coverage is likely much lower than it appears**.
+- The test harness sets `options(skip_long_checks = TRUE)` by default (`tests/testthat.R:11`), and many important tests immediately call `skip_long_checks()`. That helper is implemented in package code (`R/utils.R:238-262`) and then invoked from the test suite (for example `tests/testthat/test-DMRs.R:3`, `tests/testthat/test-makeQset.R:4`, `tests/testthat/test-exampleQset.R:3`, `tests/testthat/test-pca.R:94`). So **effective routine coverage is likely much lower than it appears**.
 - Some tests depend on **local/internal absolute paths** and are skipped on CI (`tests/testthat/test-makeQset.R:87-194`), which is not a good Bioconductor story.
 - Some tests require internet or external annotation resources (`tests/testthat/test-mouse.R:3-5`), which reduces reproducibility on builders.
 - I did not find direct tests for **invalid construction / validity** of the custom S4 classes.
 
 ### Assessment
 
-- **Breadth is good, but submission-grade reliability is not there yet**.
+- **Breadth is good, but submission-grade reliability is not there yet**, because a notable fraction of coverage is skipped by default, some checks depend on local infrastructure or internet access, and there is no direct validation-focused testing of the package's custom S4 classes.
 
 ## 4) Highest-priority changes before Bioconductor submission
 
