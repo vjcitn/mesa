@@ -32,7 +32,7 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 
 - The package-level description is still fairly terse/technical and does not explain the scientific niche as well as the vignettes do (`man/mesa-package.Rd:7-10`).
 - The README still presents the vignette set as less mature than it is, despite the package already shipping user guides such as `vignettes/introduction.Rmd` and `vignettes/generation.Rmd` (`README.md:13`; `vignettes/introduction.Rmd:23-40`; `vignettes/generation.Rmd:24-29`).
-- Some vignette prose contains concrete wording problems that interrupt the scientific narrative and tutorial flow: the phrase “designed to introduction” should read “designed as an introduction”, “Once this step has performed” should read “Once this step has been performed”, and “this is only includes” should read “this includes only” (`vignettes/introduction.Rmd:24,32,43`).
+- Some vignette prose in the introduction vignette needs routine proofreading for grammar and sentence flow, and this weakens an otherwise strong user-facing scientific narrative (`vignettes/introduction.Rmd:24,32,43`).
 
 ### Assessment
 
@@ -48,7 +48,7 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 
 ### Concerns
 
-- The test harness sets `options(skip_long_checks = TRUE)` by default (`tests/testthat.R:11`), and many important tests immediately call `skip_long_checks()`. That helper is implemented in package code (`R/utils.R:238-262`) and then invoked from the test suite (for example `tests/testthat/test-DMRs.R:3`, `tests/testthat/test-makeQset.R:4`, `tests/testthat/test-exampleQset.R:3`, `tests/testthat/test-pca.R:94`). So a meaningful portion of test coverage is skipped in routine runs.
+- The test harness sets `options(skip_long_checks = TRUE)` by default (`tests/testthat.R:11`), and many important tests immediately call `skip_long_checks()`. That helper is implemented in package code (`R/utils.R:238-262`) and then invoked from the test suite (for example `tests/testthat/test-DMRs.R:3`, `tests/testthat/test-makeQset.R:4`, `tests/testthat/test-exampleQset.R:3`, `tests/testthat/test-pca.R:94`). So under the default local test configuration, a meaningful portion of coverage is skipped unless that option is changed.
 - Some tests depend on **local/internal absolute paths** and are skipped on CI (`tests/testthat/test-makeQset.R:87-194`), which is not a good Bioconductor story.
 - Some tests require internet or external annotation resources (`tests/testthat/test-mouse.R:3-5`), which reduces reproducibility on builders.
 - I did not find direct tests in `tests/testthat/test-pca.R` or `tests/testthat/test-misc.R` for **invalid construction / validity** of the custom S4 classes `mesaDimRed`, `mesaPCA`, and `mesaUMAP`.
