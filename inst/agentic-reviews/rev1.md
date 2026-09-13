@@ -6,15 +6,15 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 
 ### Good
 
-- The package does use S4 where it matters: it defines `mesaDimRed`, `mesaPCA`, and `mesaUMAP` with formal slots, `show()` methods, and validity methods (`/home/runner/work/mesa/mesa/R/classes.R:32-105`, `132-182`, `208-255`).
-- It also extends `qseaSet` with S4 generics/methods like `getMart` / `setMart` (`/home/runner/work/mesa/mesa/R/qseaExtra.R:87-104`).
+- The package does use S4 where it matters: it defines `mesaDimRed`, `mesaPCA`, and `mesaUMAP` with formal slots, `show()` methods, and validity methods (`R/classes.R:32-105`, `132-182`, `208-255`).
+- It also extends `qseaSet` with S4 generics/methods like `getMart` / `setMart` (`R/qseaExtra.R:87-104`).
 - It uses core Bioconductor data types like `GRanges` and builds on `qsea`, which is a sensible Bioconductor alignment.
 
 ### Concerns
 
-- The custom S4 classes have **minimal validity** only; they do not check cross-slot consistency (for example `samples` vs `rownames(sampleTable)`, dimensions of `points`/`dataTable`, or contents of `res`) (`/home/runner/work/mesa/mesa/R/classes.R:98-105`, `176-181`, `250-254`).
-- The package leans heavily on **S3 dplyr methods on `qseaSet`** (`/home/runner/work/mesa/mesa/NAMESPACE:3-10`), which is user-friendly but less Bioconductor-idiomatic than a richer accessor/coercion layer.
-- The package help page is marked internal (`/home/runner/work/mesa/mesa/R/mesa-package.R:1-3`), which is not ideal for a Bioconductor-facing package.
+- The custom S4 classes have **minimal validity** only; they do not check cross-slot consistency (for example `samples` vs `rownames(sampleTable)`, dimensions of `points`/`dataTable`, or contents of `res`) (`R/classes.R:98-105`, `176-181`, `250-254`).
+- The package leans heavily on **S3 dplyr methods on `qseaSet`** (`NAMESPACE:3-10`), which is user-friendly but less Bioconductor-idiomatic than a richer accessor/coercion layer.
+- The package help page is marked internal (`R/mesa-package.R:1-3`), which is not ideal for a Bioconductor-facing package.
 
 ### Assessment
 
@@ -24,15 +24,15 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 
 ### Good
 
-- The README clearly states the biological problem and assay types (`/home/runner/work/mesa/mesa/README.md:3-13`).
-- The vignettes are the strongest part: the introduction and generation vignettes explain the **scientific purpose**, assay context, workflow, and interpretation in human terms (`/home/runner/work/mesa/mesa/vignettes/introduction.Rmd:23-40`, `71-90`; `/home/runner/work/mesa/mesa/vignettes/generation.Rmd:24-84`, `106-173`).
-- Function-level docs are detailed and oriented to users, especially `makeQset()` (`/home/runner/work/mesa/mesa/R/makeQset.R:1-213`).
+- The README clearly states the biological problem and assay types (`README.md:3-13`).
+- The vignettes are the strongest part: the introduction and generation vignettes explain the **scientific purpose**, assay context, workflow, and interpretation in human terms (`vignettes/introduction.Rmd:23-40`, `71-90`; `vignettes/generation.Rmd:24-84`, `106-173`).
+- Function-level docs are detailed and oriented to users, especially `makeQset()` (`R/makeQset.R:1-213`).
 
 ### Concerns
 
-- The package-level description is still fairly terse/technical and does not explain the scientific niche as well as the vignettes do (`/home/runner/work/mesa/mesa/man/mesa-package.Rd:7-10`).
-- README says “a full vignette is under construction” even though there are already multiple vignettes (`/home/runner/work/mesa/mesa/README.md:13`).
-- There are noticeable wording and grammar issues in vignettes, which Bioconductor reviewers often notice (`/home/runner/work/mesa/mesa/vignettes/introduction.Rmd:24`, `32`, `43`).
+- The package-level description is still fairly terse/technical and does not explain the scientific niche as well as the vignettes do (`man/mesa-package.Rd:7-10`).
+- The README should be updated to describe the current documentation set accurately; for example, the line saying “a full vignette is under construction” does not match the presence of several existing vignettes and makes the package look less mature than it is (`README.md:13`).
+- There are noticeable wording and grammar issues in vignettes, such as “designed to introduction” (`vignettes/introduction.Rmd:24`), “Once this step has performed” (`vignettes/introduction.Rmd:32`), and “this is only includes” (`vignettes/introduction.Rmd:43`), which Bioconductor reviewers often notice.
 
 ### Assessment
 
@@ -42,15 +42,15 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 
 ### Good
 
-- There is broad topical coverage: DMRs, qset editing, PCA/UMAP, annotation, parallelism, utility functions, and construction workflows (`/home/runner/work/mesa/mesa/tests/testthat/`).
-- Several tests check both success and error behavior, which is good Bioconductor practice (for example `/home/runner/work/mesa/mesa/tests/testthat/test-DMRs.R`, `/home/runner/work/mesa/mesa/tests/testthat/test-editQset.R`, `/home/runner/work/mesa/mesa/tests/testthat/test-pca.R`).
-- CI is set up to run `R CMD check`, `BiocCheck`, and coverage tooling (`/home/runner/work/mesa/mesa/.github/workflows/check-bioc.yml:264-300`).
+- There is broad topical coverage: DMRs, qset editing, PCA/UMAP, annotation, parallelism, utility functions, and construction workflows (`tests/testthat/`).
+- Several tests check both success and error behavior, which is good Bioconductor practice (for example `tests/testthat/test-DMRs.R`, `tests/testthat/test-editQset.R`, `tests/testthat/test-pca.R`).
+- CI is set up to run `R CMD check`, `BiocCheck`, and coverage tooling (`.github/workflows/check-bioc.yml:264-300`).
 
 ### Concerns
 
-- The test harness sets `options(skip_long_checks = TRUE)` by default (`/home/runner/work/mesa/mesa/tests/testthat.R:11`), and many important tests immediately call `skip_long_checks()` (`/home/runner/work/mesa/mesa/R/utils.R:238-262`; for example `test-DMRs.R:3`, `test-makeQset.R:4`, `test-exampleQset.R:3`, `test-pca.R:94`). So **effective routine coverage is likely much lower than it appears**.
-- Some tests depend on **local/internal absolute paths** and are skipped on CI (`/home/runner/work/mesa/mesa/tests/testthat/test-makeQset.R:87-194`), which is not a good Bioconductor story.
-- Some tests require internet or external annotation resources (`/home/runner/work/mesa/mesa/tests/testthat/test-mouse.R:3-5`), which reduces reproducibility on builders.
+- The test harness sets `options(skip_long_checks = TRUE)` by default (`tests/testthat.R:11`), and many important tests immediately call `skip_long_checks()` (`R/utils.R:238-262`; for example `tests/testthat/test-DMRs.R:3`, `tests/testthat/test-makeQset.R:4`, `tests/testthat/test-exampleQset.R:3`, `tests/testthat/test-pca.R:94`). So **effective routine coverage is likely much lower than it appears**.
+- Some tests depend on **local/internal absolute paths** and are skipped on CI (`tests/testthat/test-makeQset.R:87-194`), which is not a good Bioconductor story.
+- Some tests require internet or external annotation resources (`tests/testthat/test-mouse.R:3-5`), which reduces reproducibility on builders.
 - I did not find direct tests for **invalid construction / validity** of the custom S4 classes.
 
 ### Assessment
