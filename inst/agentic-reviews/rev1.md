@@ -31,8 +31,8 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 ### Concerns
 
 - The package-level description is still fairly terse/technical and does not explain the scientific niche as well as the vignettes do (`man/mesa-package.Rd:7-10`).
-- Follow-up recommendation: update the README so its description of the documentation set matches the material already shipped in `vignettes/` (`README.md:13`, `vignettes/`).
-- Follow-up recommendation: edit the vignettes for wording and grammar polish, especially where sentence construction currently distracts from the scientific narrative and tutorial flow (`vignettes/introduction.Rmd:24,32,43`).
+- Follow-up recommendation: update the README so it no longer presents the vignette set as still under construction, and instead describes the already available user guides in `vignettes/` (`README.md:13`, `vignettes/`).
+- Follow-up recommendation: edit the vignettes for wording and grammar polish at places where the prose currently uses malformed infinitives, broken passive constructions, or extra words that interrupt the scientific narrative and tutorial flow (`vignettes/introduction.Rmd:24,32,43`).
 
 ### Assessment
 
