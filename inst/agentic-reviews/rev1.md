@@ -32,7 +32,7 @@ Overall: **promising, but not fully Bioconductor-ready yet**.
 
 - The package-level description is still fairly terse/technical and does not explain the scientific niche as well as the vignettes do (`man/mesa-package.Rd:7-10`).
 - Follow-up recommendation: update the README so its description of the documentation set matches the material already shipped in `vignettes/` (`README.md:13`, `vignettes/`).
-- Follow-up recommendation: edit the vignettes for wording and grammar polish; examples of current phrasing that would benefit from revision include “designed to introduction” (`vignettes/introduction.Rmd:24`), “Once this step has performed” (`vignettes/introduction.Rmd:32`), and “this is only includes” (`vignettes/introduction.Rmd:43`).
+- Follow-up recommendation: edit the vignettes for wording and grammar polish; for example, “designed to introduction” (`vignettes/introduction.Rmd:24`) should be rewritten as a grammatical infinitive such as “designed to introduce”, “Once this step has performed” (`vignettes/introduction.Rmd:32`) needs the passive construction corrected, and “this is only includes” (`vignettes/introduction.Rmd:43`) should be simplified to standard declarative phrasing.
 
 ### Assessment
 
